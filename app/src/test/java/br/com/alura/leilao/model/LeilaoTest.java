@@ -54,17 +54,6 @@ public class LeilaoTest {
     }
 
     @Test
-    public void deve_DevolverMaiorLance_QuandoRecebeMaisDeUmLanceEmOrdemDecrescente(){
-
-        CONSOLE.propoe(new Lance(USUARIO_ALEX, 300.0));
-        CONSOLE.propoe(new Lance(new Usuario("Fran"), 100.0));
-
-        double maiorLanceDevolvido = CONSOLE.getMaiorLance();
-
-        assertEquals(300.0, maiorLanceDevolvido, DELTA);
-    }
-
-    @Test
     public void deve_DevolverMenorLance_QuandoRecebeApenasUmLance(){
 
         CONSOLE.propoe(new Lance(USUARIO_ALEX, 200.0));
@@ -179,11 +168,13 @@ public class LeilaoTest {
     @Test
     public void naoDeve_AdicionarLance_QuandoForMenorQueOMaiorLance(){
         CONSOLE.propoe((new Lance(USUARIO_ALEX, 500.0)));
-        CONSOLE.propoe((new Lance(new Usuario("Fran"), 400.0)));
 
-        int quantidadeLancesDevolvido = CONSOLE.quantidadeLances();
-
-        assertEquals(1, quantidadeLancesDevolvido);
+        try {
+            CONSOLE.propoe((new Lance(new Usuario("Fran"), 400.0)));
+            fail("Era esperada uma RuntimeException");
+        }catch (RuntimeException exeception){
+            // teste passou
+        }
     }
 
     @Test
