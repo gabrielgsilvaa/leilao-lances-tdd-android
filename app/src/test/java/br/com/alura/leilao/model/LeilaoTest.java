@@ -6,8 +6,10 @@ import static org.junit.Assert.*;
 
 public class LeilaoTest {
 
+    // [Nome do Metodo][Estado de Teste][Resultado Esperado]
+
     @Test
-    public void getDescricao() {
+    public void getDescricaoQuandoRecebeDescricaoDevolveDescricao() {
         // criar cenário de teste
         Leilao console = new Leilao("Console");
 
@@ -18,22 +20,19 @@ public class LeilaoTest {
         assertEquals("Console", descricaoDevolvida);
     }
 
-
     @Test
-    public void getMaiorLance(){
+    public void getMaiorLanceQuandoRecebeApenasUmLanceDevolveMaiorLance(){
 
-        /** Verifica se devolve o maior lance com apenas um lance **/
         Leilao console = new Leilao("Console");
         console.propoe(new Lance(new Usuario("Alex"), 200.0));
 
         double maiorLanceDevolvidoConsole = console.getMaiorLance();
 
         assertEquals(200.0, maiorLanceDevolvidoConsole, 0.0001);
-            // delta = a diferença entre os valores com ponto flutuante
-            // e se for maior siginifica que os valores são equivalentes
+    }
 
-        /***********************/
-        /** Verifica se devolve o maior lance em ordem crescente **/
+    @Test
+    public void getMaiorLanceQuandoRecebeMaisDeUmLanceEmOrdemCrescenteDevolveMaiorLance(){
 
         Leilao computador = new Leilao("Computador");
         computador.propoe(new Lance(new Usuario("Alex"), 100.0));
@@ -42,9 +41,10 @@ public class LeilaoTest {
         double maiorLanceDevolvidoComputador = computador.getMaiorLance();
 
         assertEquals(500.0, maiorLanceDevolvidoComputador, 0.0001);
+    }
 
-        /***********************/
-        /** Verifica se devolve o maior lance em ordem decrescente **/
+    @Test
+    public void getMaiorLanceQuandoRecebeMaisDeUmLanceEmOrdemDecrescenteDevolveMaiorLance(){
 
         Leilao carro = new Leilao("Carro");
         carro.propoe(new Lance(new Usuario("Alex"), 300.0));
