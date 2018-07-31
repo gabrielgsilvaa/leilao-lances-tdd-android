@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import java.util.List;
 
+import br.com.alura.leilao.builder.LeilaoBuilder;
+
 import static org.junit.Assert.*;
 
 public class LeilaoTest {
@@ -197,21 +199,25 @@ public class LeilaoTest {
     @Test
     public void naoDeve_AdicionarLance_QuandoOUsuarioDerCincoLances(){
         final Usuario usuarioFran = new Usuario("Fran");
-        CONSOLE.propoe(new Lance(USUARIO_ALEX, 100.0));
-        CONSOLE.propoe(new Lance(usuarioFran, 200.0));
-        CONSOLE.propoe(new Lance(USUARIO_ALEX, 300.0));
-        CONSOLE.propoe(new Lance(usuarioFran, 400.0));
-        CONSOLE.propoe(new Lance(USUARIO_ALEX, 500.0));
-        CONSOLE.propoe(new Lance(usuarioFran, 600.0));
-        CONSOLE.propoe(new Lance(USUARIO_ALEX, 700.0));
-        CONSOLE.propoe(new Lance(usuarioFran, 800.0));
-        CONSOLE.propoe(new Lance(USUARIO_ALEX, 900.0));
-        CONSOLE.propoe(new Lance(usuarioFran, 1000.0));
 
-        CONSOLE.propoe(new Lance(USUARIO_ALEX, 1100.0));
-        CONSOLE.propoe(new Lance(usuarioFran, 1200.0));
+        final Leilao console = new LeilaoBuilder("Console")
+                        .lance(USUARIO_ALEX, 100.0)
+                        .lance(usuarioFran, 200.0)
+                        .lance(USUARIO_ALEX, 300.0)
+                        .lance(usuarioFran, 400.0)
+                        .lance(USUARIO_ALEX, 500.0)
+                        .lance(usuarioFran, 600.0)
+                        .lance(USUARIO_ALEX, 700.0)
+                        .lance(usuarioFran, 800.0)
+                        .lance(USUARIO_ALEX, 900.0)
+                        .lance(usuarioFran, 1000.0)
 
-        int quantidadeLancesDevolvido = CONSOLE.quantidadeLances();
+                        .lance(USUARIO_ALEX, 1100.0)
+                        .lance(usuarioFran, 1200.0)
+
+                        .build();
+
+        int quantidadeLancesDevolvido = console.quantidadeLances();
 
         assertEquals(10, quantidadeLancesDevolvido);
     }
