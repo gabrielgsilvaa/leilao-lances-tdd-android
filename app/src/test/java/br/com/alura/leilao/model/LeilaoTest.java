@@ -172,45 +172,51 @@ public class LeilaoTest {
         try {
             CONSOLE.propoe((new Lance(new Usuario("Fran"), 400.0)));
             fail("Era esperada uma RuntimeException");
-        }catch (RuntimeException exeception){
+        }catch (RuntimeException exception){
             // teste passou
+            assertEquals("Lance foi menor que o maior lance", exception.getMessage());
         }
     }
 
     @Test
     public void naoDeve_AdicionarLance_QuandoForOMesmoUsuarioDoUltimoLance(){
         CONSOLE.propoe(new Lance(USUARIO_ALEX, 500.0));
-        CONSOLE.propoe(new Lance(new Usuario("Alex"), 600.0));
+        try {
+            CONSOLE.propoe(new Lance(new Usuario("Alex"), 600.0));
+            fail("Era esperada uma RuntimeException");
+        }catch (RuntimeException exception){
+            // teste passou
+            assertEquals("Mesmo usuário do ultimo lance", exception.getMessage());
+        }
 
-        int quantidadeLancesDevolvido = CONSOLE.quantidadeLances();
-
-        assertEquals(1, quantidadeLancesDevolvido);
     }
 
     @Test
     public void naoDeve_AdicionarLance_QuandoOUsuarioDerCincoLances(){
         final Usuario usuarioFran = new Usuario("Fran");
 
-        final Leilao console = new LeilaoBuilder("Console")
-                        .lance(USUARIO_ALEX, 100.0)
-                        .lance(usuarioFran, 200.0)
-                        .lance(USUARIO_ALEX, 300.0)
-                        .lance(usuarioFran, 400.0)
-                        .lance(USUARIO_ALEX, 500.0)
-                        .lance(usuarioFran, 600.0)
-                        .lance(USUARIO_ALEX, 700.0)
-                        .lance(usuarioFran, 800.0)
-                        .lance(USUARIO_ALEX, 900.0)
-                        .lance(usuarioFran, 1000.0)
+        Leilao console = new LeilaoBuilder("Console")
+                            .lance(USUARIO_ALEX, 100.0)
+                            .lance(usuarioFran, 200.0)
+                            .lance(USUARIO_ALEX, 300.0)
+                            .lance(usuarioFran, 400.0)
+                            .lance(USUARIO_ALEX, 500.0)
+                            .lance(usuarioFran, 600.0)
+                            .lance(USUARIO_ALEX, 700.0)
+                            .lance(usuarioFran, 800.0)
+                            .lance(USUARIO_ALEX, 900.0)
+                            .lance(usuarioFran, 1000.0)
+                            //.lance(USUARIO_ALEX, 1100.0)
+                            .build();
 
-                        .lance(USUARIO_ALEX, 1100.0)
-                        .lance(usuarioFran, 1200.0)
+        try {
+            console.propoe(new Lance(USUARIO_ALEX, 1100));
+            fail("Era esperada um RuntimeException");
+        }catch (RuntimeException exception){
+            // teste passou
+            assertEquals("Usuario ja deu cinco lances", exception.getMessage());
+        }
 
-                        .build();
-
-        int quantidadeLancesDevolvido = console.quantidadeLances();
-
-        assertEquals(10, quantidadeLancesDevolvido);
     }
 
 }
