@@ -82,19 +82,7 @@ public class LeilaoTest {
 
         assertEquals(100.0, menorLanceDevolvido, DELTA);
     }
-
-    @Test
-    public void deve_DevolverMenorLance_QuandoRecebeMaisDeUmLanceEmOrdemDecrescente(){
-
-        CONSOLE.propoe(new Lance(USUARIO_ALEX, 300.0));
-        CONSOLE.propoe(new Lance(new Usuario("Fran"), 100.0));
-
-        double menorLanceDevolvido = CONSOLE.getMenorLance();
-
-        assertEquals(100.0, menorLanceDevolvido, DELTA);
-
-    }
-
+    
     @Test
     public void deve_DevolverTresMaioresLances_QuandoRecebeExatosTresLances(){
 
@@ -184,6 +172,17 @@ public class LeilaoTest {
         double menorLanceDevolvido = CONSOLE.getMenorLance();
 
         assertEquals(0.0, menorLanceDevolvido, DELTA);
+    }
+
+    @Test
+    public void naoDeve_AdicionarLance_QuandoForMenorQueOMaiorLance(){
+        CONSOLE.propoe((new Lance(USUARIO_ALEX, 500.0)));
+        CONSOLE.propoe((new Lance(new Usuario("Fran"), 400.0)));
+
+        final int quantidadeLancesDevolvido = CONSOLE.quantidadeLances();
+
+        assertEquals(1, quantidadeLancesDevolvido);
+
     }
 
 }
