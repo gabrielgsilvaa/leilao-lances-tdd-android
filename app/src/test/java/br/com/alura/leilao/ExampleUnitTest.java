@@ -5,6 +5,7 @@ import org.junit.Test;
 import br.com.alura.leilao.model.Usuario;
 
 import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
 /**
@@ -25,5 +26,6 @@ public class ExampleUnitTest {
         assertNotNull(new Usuario("Teste"));
 
         assertThat(2 + 2, equalTo(4));
+        assertThat(2 + 2, is(4));
     }
 }

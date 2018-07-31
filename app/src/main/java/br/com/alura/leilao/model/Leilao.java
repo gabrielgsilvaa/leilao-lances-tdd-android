@@ -130,4 +130,6 @@ public class Leilao implements Serializable {
     public int quantidadeLances() {
         return lances.size();
     }
+
+
 }
