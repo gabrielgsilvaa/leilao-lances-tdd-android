@@ -192,7 +192,28 @@ public class LeilaoTest {
         int quantidadeLancesDevolvido = CONSOLE.quantidadeLances();
 
         assertEquals(1, quantidadeLancesDevolvido);
+    }
 
+    @Test
+    public void naoDeve_AdicionarLance_QuandoOUsuarioDerCincoLances(){
+        final Usuario usuarioFran = new Usuario("Fran");
+        CONSOLE.propoe(new Lance(USUARIO_ALEX, 100.0));
+        CONSOLE.propoe(new Lance(usuarioFran, 200.0));
+        CONSOLE.propoe(new Lance(USUARIO_ALEX, 300.0));
+        CONSOLE.propoe(new Lance(usuarioFran, 400.0));
+        CONSOLE.propoe(new Lance(USUARIO_ALEX, 500.0));
+        CONSOLE.propoe(new Lance(usuarioFran, 600.0));
+        CONSOLE.propoe(new Lance(USUARIO_ALEX, 700.0));
+        CONSOLE.propoe(new Lance(usuarioFran, 800.0));
+        CONSOLE.propoe(new Lance(USUARIO_ALEX, 900.0));
+        CONSOLE.propoe(new Lance(usuarioFran, 1000.0));
+
+        CONSOLE.propoe(new Lance(USUARIO_ALEX, 1100.0));
+        CONSOLE.propoe(new Lance(usuarioFran, 1200.0));
+
+        int quantidadeLancesDevolvido = CONSOLE.quantidadeLances();
+
+        assertEquals(10, quantidadeLancesDevolvido);
     }
 
 }
